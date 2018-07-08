@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option java_package = "protocols.bull";
+option java_outer_classname = "grabbing";
+
+// CMD: 0x85
+// 抢庄
+
+// 请求
+message request
+{
+    uint32 grabs                = 1; // 抢庄倍数，1=不抢(默认)
+}
+
+// 返回
+message response
+{
+    sint32 error                = 1; // 错误代码，0=成功 其他=错误
+    oneof type {
+        uint32 seat             = 2; // 玩家座位ID，广播玩家的抢庄倍数
+        uint32 dealer           = 3; // 庄家座位ID，确定庄家
+    }
+    uint32 grabs                = 4; // 抢庄倍数
+	string errDesc              = 5; // 错误描述
+}

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_package = "protocols.coinroom";
+option java_outer_classname = "standup";
+
+// 玩家申请成为观众请求 CMD 0x31
+message request
+{
+	
+}
+
+// 响应 CMD 0x31
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功  1=玩完本局才能做观众
+    string errDesc                = 2; // 错误描述
+}
+
+// 广播式返回 CMD 0x32
+message standup_notify
+{
+	uint32 seatId             = 1; // 座位号
+}

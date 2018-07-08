@@ -1,0 +1,42 @@
+syntax = "proto3";
+import "config.proto";
+
+option java_package = "protocols.game";
+option java_outer_classname = "newgame";
+
+// CMD: 0x11
+// 创建房间
+
+// 请求
+message request
+{
+    uint32 game                 = 1; // 游戏类型，1=斗牛；2=三五张
+	uint32 lastInst             = 2; // 上一次房间号，会根据该房间号创建同样配置的新房间。0=正常开房间
+    // 配置
+    oneof config
+    {
+        bull bull  = 8; // 斗牛
+    }
+}
+
+// CMD: 0x1106
+message againNotify
+{
+	uint32 inst                 = 1; // 再来一次新开的房间号，通知询问非房主用户是否加入。
+	string ownerName            = 2; // 房主姓名
+}
+
+// 返回
+message response
+{
+    sint32 error                = 1; // 错误代码，0=成功 1=房卡不足 2=房间号用尽 3=已有游戏进行中，inst返回房间号 4=金币不足 其他=错误
+    uint32 game                 = 2; // 游戏类型，1=斗牛；2=三五张
+    uint32 inst                 = 3; // 房间ID
+    uint32 owner                = 4; // 房主
+    string errDesc              = 5; // 错误描述
+    // 配置
+    oneof config
+    {
+        bull bull  = 8; // 斗牛
+    }
+}

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "lottery/prizes.proto";
+
+option java_package = "protocols.lottery";
+option java_outer_classname = "drawprize";
+
+// CMD: 0x1103
+// 抽奖，返回奖品
+
+// 请求
+message drawrequest
+{
+	string lang                    = 1; //语种，en_US为英文，zh_CN为中文。
+}
+
+// 返回
+message drawresponse
+{
+    uint32 error                   = 1; // 0=成功 1=抽奖次数为0，抽奖无效 其他 = 错误
+    prize_t prize                  = 2; // 下次中奖奖品
+	uint32 drawCount               = 3; // 剩余抽奖次数
+	string errDesc                 = 4; // 错误描述
+}
+

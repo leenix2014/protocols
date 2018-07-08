@@ -1,0 +1,25 @@
+syntax = "proto3";
+import "coinroom/common.proto";
+
+option java_package = "protocols.coinroom";
+option java_outer_classname = "roomlist";
+
+// 请求 CMD 0x20
+message request
+{
+	room_type mode                = 1; // 无庄模式还是抢庄模式
+	room_grade grade              = 2; // 初级场、中级场、高级场
+}
+
+// 响应
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功
+	repeated room_t rooms         = 2; // 房间配置列表
+	string errDesc                = 3; // 错误描述
+}
+
+message room_t{
+	room_info config              = 1; // 房间配置
+	uint32 playing                = 2; // 在玩人数
+}

@@ -1,0 +1,36 @@
+syntax = "proto3";
+import "baccarat/common.proto";
+
+option java_package = "protocols.baccarat";
+option java_outer_classname = "result";
+
+// CMD: 0x1409
+// 百家乐开奖
+
+// 请求(Reserved)
+message request
+{
+	string roomId              = 1; // 房间号
+}
+
+// 返回
+message response
+{
+	sint32 error                           = 1; // 错误码，0=成功
+	string errDesc                         = 2; // 错误描述
+    baccarat_result result                 = 3; // 百家乐开奖结果
+	repeated bet selfRewards               = 4; // 获奖信息
+	uint32 userCoin                        = 5; // 领奖后金币余额
+	repeated user_reward otherRewards      = 6; // 其他玩家奖励
+	uint32 remains                         = 7; // 余牌
+	waybill waybill                        = 8; // 房间内路单
+	bool shuffle                           = 9; // true则播放洗牌动画
+}
+
+message user_reward
+{
+	user_info player              = 1; // 玩家
+	uint32 reward                 = 2; // 奖励
+	repeated bet detail           = 3; // 详细奖励
+	bool bigWinner                = 4; // 是否是大赢家
+}

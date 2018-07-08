@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option java_package = "protocols.roulette";
+option java_outer_classname = "history";
+
+// 获取轮盘历史开奖 CMD 0x1311
+message request
+{
+	string roomId              = 1; // 房间号
+}
+
+// 历史开奖响应 CMD 0x1311
+message response
+{
+    sint32 error                   = 1; // 错误代码，0=成功
+    string errDesc                 = 2; // 错误描述
+	repeated roulette roulettes    = 3; // 轮盘历史记录
+}
+
+// 轮盘历史记录
+message roulette
+{
+	string roomId              = 1; // 房间号
+	uint32 result              = 2; // 开奖结果
+	uint32 totalBet            = 3; // 总下注
+	uint32 totalReward         = 4; // 总奖励
+	string time                = 5; // 时间
+}

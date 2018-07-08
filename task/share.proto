@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_package = "protocols.task";
+option java_outer_classname = "share";
+
+// CMD: 0x9C
+// 分享链接协议
+
+// 请求
+message request
+{
+    uint32 shareTimes              = 1; // 分享的次数
+}
+
+// 返回
+message response
+{
+    uint32 error                   = 1; // 0 = 成功 其他 = 错误
+    string errDesc                 = 2; // 错误描述
+}
+

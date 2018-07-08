@@ -1,0 +1,29 @@
+syntax = "proto2";
+
+option java_package = "protocols.coinroom";
+option java_outer_classname = "showhand";
+
+// 摊牌 [proto3 不支持 repeated uint32等数字类型]
+
+// 请求 CMD 0x2F
+message request
+{
+    repeated uint32 hand   = 1; // 手牌
+}
+
+// 返回 CMD 0x2F
+message response
+{
+    required sint32 error       = 1; // 错误代码，0=成功 1=客户端的牌与服务器端的牌不一致 其他=错误
+    required uint32 cardType    = 2; // 牌型
+	repeated uint32 hand        = 3; // 已摊牌手牌
+	optional string errDesc     = 4; // 错误描述
+}
+
+// 摊牌通知观众和其他玩家 CMD 0x37
+message showhand_notify
+{
+	required uint32 seatId      = 1; // 座位号
+	repeated uint32 hand        = 2; // 手牌
+	required uint32 cardType    = 3; // 牌型
+}

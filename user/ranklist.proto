@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option java_package = "protocols.user";
+option java_outer_classname = "ranklist";
+
+// CMD: 0x75
+// 用户排行榜
+
+// 请求
+message request
+{
+	string type               = 1; // coin=财富排行榜 win=赢钱排行榜
+}
+
+
+message response
+{
+	sint32 error	          = 1; // 错误代码，0=成功
+	string errDesc            = 2; // 错误描述
+	repeated user_info users  = 3; // 排行榜用户列表
+}
+
+message user_info
+{
+	uint32 rank        = 1; // 名次
+	string userId      = 2; // 用户id
+	string userName    = 3; // 用户名称
+	uint32 avatar      = 4; // 头像
+    uint32 amount      = 5; // 金币数
+}
+

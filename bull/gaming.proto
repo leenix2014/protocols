@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_package = "protocols.bull";
+option java_outer_classname = "gaming";
+
+// CMD: 0x1101
+// 查询正在游戏的房间
+
+// 请求
+message request
+{
+    
+}
+
+// 返回
+message response
+{
+    sint32 error                    = 1; // 错误代码，0=成功 其他=错误
+    uint32 inst                     = 2; // 房间ID，0=不在房间内 其他=所在房间的id
+	string errDesc                  = 3; // 错误描述
+}

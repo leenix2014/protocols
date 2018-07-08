@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_package = "protocols.bull";
+option java_outer_classname = "sitdown";
+// CMD: 0x81
+// 玩家坐下，广播给其他玩家
+
+// 请求
+message request
+{
+}
+
+// 返回
+message response
+{
+    sint32 error    = 1; // 错误代码，0=成功 其他=错误
+    uint32 id       = 2; // 座位ID
+    uint32 uid      = 3; // UID
+    string name     = 4; // 昵称
+    uint32 avatar   = 5; // 头像
+    uint32 roomcard = 6; // 房卡数
+	string errDesc  = 7; // 错误描述
+}

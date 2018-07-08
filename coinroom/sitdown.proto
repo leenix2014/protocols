@@ -1,0 +1,25 @@
+syntax = "proto3";
+import "coinroom/common.proto";
+
+option java_package = "protocols.coinroom";
+option java_outer_classname = "sitdown";
+
+// 观众申请成为玩家 CMD 0x24
+message request
+{
+	uint32 seatId                 = 1; // 座位号
+}
+
+// 单用户响应 CMD 0x24
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功 1=此座位已有其他玩家
+    string errDesc                = 2; // 错误描述
+}
+
+// 广播式返回 CMD 0x25
+message sitdown_notify
+{
+	uint32 seatId             = 1; // 座位号
+	user_info sitdownUser     = 2; // 坐下玩家的信息
+}

@@ -1,0 +1,26 @@
+syntax = "proto3";
+import "config.proto";
+
+option java_package = "protocols.bull";
+option java_outer_classname = "state";
+
+// CMD: 0x80
+// 同步房间状态
+
+// 请求
+message request
+{
+}
+
+// 返回
+message response
+{
+    sint32 error                = 1; // 错误代码，0=成功 其他=错误
+    uint32 inst                 = 2; // 房间ID
+    uint32 owner                = 3; // 房主
+    bool playing                = 4; // 牌局是否在进行
+    uint32 inning               = 5; // 局数，每局开始后+1
+    bull config                 = 6; // 斗牛配置
+    repeated seat_t seats       = 7; // 座位
+	string errDesc              = 8; // 错误描述
+}

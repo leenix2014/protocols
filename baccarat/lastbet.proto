@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option java_package = "protocols.baccarat";
+option java_outer_classname = "lastbet";
+
+// 获取百家乐上轮下注 CMD 0x1414
+message request
+{
+	string roomId              = 1; // 房间号
+}
+
+// 上轮下注响应 CMD 0x1414
+message response
+{
+    sint32 error                   = 1; // 错误代码，0=成功
+    string errDesc                 = 2; // 错误描述
+	repeated bet_reward bets       = 3; // 百家乐上轮下注
+}
+
+// 下注获奖记录
+message bet_reward
+{
+	string target                 = 1; // 下注和获奖目标
+	uint32 coins                  = 2; // 下注金币数
+	uint32 reward                 = 3; // 获奖金额
+}

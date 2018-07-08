@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option java_package = "protocols.bull";
+option java_outer_classname = "finish";
+// CMD: 0x89
+// 牌局结束，进行总结算
+
+// 请求: 无
+// message request{}
+
+// 返回
+message response
+{
+    uint32 inning           = 1; // 完成局数
+    uint32 reason            = 2; // 结束原因，0=inning up 1=房间解散 2=玩家封顶 3=庄家封顶
+    repeated seat_t seats   = 3; // 座位信息
+}
+
+
+// 座位
+message seat_t
+{
+    uint32 id       = 1; // 座位ID
+    uint32 uid      = 2; // UID
+    sint32 total    = 3; // 总分
+    bool bankrupt   = 4; // 该玩家是否破产
+    bool winner     = 5; // 该玩家是否最大赢家
+	float draw      = 6; // 总抽水，目前四舍五入到整数
+}

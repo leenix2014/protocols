@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option java_package = "protocols.live";
+option java_outer_classname = "betfruit";
+
+// CMD: 0x1241
+// 水果机下注
+
+// 请求
+message request
+{
+	uint32 roomId                 = 1; // 下注房间号
+	fruit_bet bet                 = 2; // 水果机下注
+}
+
+message fruit_bet
+{
+	uint32 bar                    = 1; // bar下注额
+	uint32 seven                  = 2; // 77下注额
+	uint32 star                   = 3; // 星星下注额
+    uint32 melon                  = 4; // 西瓜下注额
+    uint32 bell                   = 5; // 铃铛下注额
+    uint32 lemon                  = 6; // 柠檬下注额
+    uint32 orange                 = 7; // 橙子下注额
+    uint32 apple                  = 8; // 苹果下注额
+}
+
+// 响应
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功
+	string errDesc                = 2; // 错误描述
+	uint32 betRemain              = 3; // 下注后剩余金币数
+}
+
+// CMD: 0x1242
+message fruit_notify
+{
+	uint32 result                 = 1; // 开奖结果 1-24
+	uint32 reward                 = 2; // 中奖金额
+	uint32 currCoin               = 3; // 中奖后现有金币数
+}

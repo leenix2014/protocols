@@ -1,0 +1,25 @@
+syntax = "proto3";
+import "live/common.proto";
+
+option java_package = "protocols.live";
+option java_outer_classname = "getroom";
+
+// CMD: 0x1203
+// 客户请求房间
+
+// 请求
+message request
+{
+    string direction              = 1; // first=第一次；up=用户往下滑动；down=用户往上滑动
+	string type                   = 2; // live=主播 pusher=推币机 catcher=娃娃机
+}
+
+// 返回
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功
+	uint32 roomId                 = 2; // 房间id，不是声网频道
+	live_room room                = 3; // 返回房间信息，必要时返回channel
+	bool paid                     = 4; // 是否已付款(付款5小时内为true)
+	string errDesc                = 5; // 错误描述
+}

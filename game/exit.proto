@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_package = "protocols.game";
+option java_outer_classname = "exit";
+
+// CMD: 0x14
+// 退出房间
+
+// 请求
+message request
+{
+    uint32 inst     = 1; // 房号
+}
+
+// 返回
+message response
+{
+    sint32 error    = 1; // 错误代码，0=成功 1=游戏已开始，退出失败 其他=错误
+    string errDesc  = 2; // 错误描述
+}

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_package = "protocols.loginreward";
+option java_outer_classname = "getloginprize";
+
+// CMD: 0x98
+// 领取签到奖励协议
+
+// 请求
+message request
+{
+    uint32 day                  = 1; // 领取第几天的奖励
+}
+
+// 返回
+message response
+{
+    uint32 error                = 1; // 0 = 成功 其他 = 错误
+    uint32 day                  = 2; // 第几天
+    uint32 roomCard             = 3; // 获得多少房卡
+    string errDesc              = 4; // 错误描述
+}
+

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_package = "protocols.live.pusher";
+option java_outer_classname = "pushout";
+
+// CMD: 0x120B
+// 投币结果
+
+// 请求(无)
+message request
+{
+	
+}
+
+// 多用户返回
+message response
+{
+    uint32 coinDrop                  = 1; // 掉下来的金币数量
+	string name                      = 2; // 赢者姓名
+}

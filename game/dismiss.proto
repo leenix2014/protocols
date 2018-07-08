@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option java_package = "protocols.game";
+option java_outer_classname = "dismiss";
+
+// CMD: 0x12
+// 解散房间
+
+// 请求
+message request
+{
+    uint32 inst     = 1; // 房号
+}
+
+// 返回
+message response
+{
+    sint32 error    = 1; // 错误代码，0=成功 1=已是最后一局
+    string errDesc  = 2; // 错误描述
+}
+
+// 通知房间内其他玩家牌局解散 CMD: 0x15
+message dismissNotify
+{
+	repeated uint32 uids = 1; // 房间内所有玩家的uid
+}
+
+// 解散房间意见请求 CMD: 0x16
+message opinionRequest
+{
+	uint32 	uid     = 1; 	// 玩家uid
+	sint32	agree	= 2;	// 玩家是否同意解散房间，1：同意，2：不同意
+}
+
+// 解散房间意见请求返回，广播通知所有玩家 CMD: 0x16
+message opinionResponse
+{
+	sint32  error   = 1; 	// 错误代码，0=成功 1=uid对应玩家不存在 其他=错误
+	string 	name    = 2; 	// uid对应玩家name
+	oneof type {
+		sint32	agree	= 3;	// 玩家是否同意解散房间，1：同意，2：不同意
+		sint32 	isDismiss = 4;	// 牌局是否解散，1：成功解散，2：解散失败
+	}
+	string errDesc  = 5; // 错误描述
+}

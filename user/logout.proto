@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_package = "protocols.user";
+option java_outer_classname = "logout";
+
+// CMD: 0x02
+// 登出协议
+
+// 请求
+message request
+{
+	
+}
+
+// 返回
+message response
+{
+	sint32 error	           = 1; // 错误代码，0=成功
+	string errDesc             = 2; // 有报错则返回错误描述
+}

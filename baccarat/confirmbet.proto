@@ -1,0 +1,33 @@
+syntax = "proto3";
+import "baccarat/common.proto";
+
+option java_package = "protocols.baccarat";
+option java_outer_classname = "confirmbet";
+
+// CMD: 0x1402
+// 百家乐下注
+
+// 请求
+message request
+{
+	string roomId              = 1; // 房间号
+	repeated bet bets          = 2; // 下注列表
+}
+
+// 返回
+message response
+{
+    sint32 error               = 1; // 错误代码，0=成功
+	string errDesc             = 2; // 错误描述
+	repeated bet bets          = 3; // 本人本次下注
+	repeated bet selfBets      = 4; // 本人下注汇总
+	uint32 userCoin            = 5; // 下注后金币余额
+	bool bigPlayer             = 6; // 下注后是否成为大玩家
+}
+
+// CMD: 0x1403
+message bet_notify
+{
+	user_info bettor           = 1; // 下注玩家信息, seatId为0代表无座玩家
+	repeated bet bets          = 2; // 玩家本次下注
+}

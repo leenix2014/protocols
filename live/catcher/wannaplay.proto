@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_package = "protocols.live.catcher";
+option java_outer_classname = "wannaplay";
+
+// CMD: 0x1210
+// 客户想要玩娃娃机
+
+// 请求
+message request
+{
+	uint32 roomId                 = 1; // 房间号
+	uint32 count                  = 2; // 想玩的次数
+}
+
+// 单用户返回
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功 1=房间号不存在或未开播 2=主播未链接娃娃机 3=扣费失败 4=其他用户已占有
+	string name                   = 2; // 占有用户姓名
+	uint32 count                  = 3; // 占有用户剩余次数
+	string errDesc                = 4; // 错误描述
+}

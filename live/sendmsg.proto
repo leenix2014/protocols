@@ -1,0 +1,31 @@
+syntax = "proto3";
+import "live/common.proto";
+
+option java_package = "protocols.live";
+option java_outer_classname = "sendmsg";
+
+// CMD: 0x1206
+// 客户发消息
+
+// 请求
+message request
+{
+	uint32 roomId                 = 1; // 用户可能同时进入多个房间，通过用户id查找到的房间号不一定正确，需客户端上传房间号
+    string msg                    = 2; // 发送的消息
+	bool crossRoom                = 3; // true=全平台消息，false=房间内消息
+}
+
+// 单用户返回
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功 1=用户不存在 2=用户不在直播房间 3=全平台消息扣费失败
+    string errDesc                = 2; // 错误描述
+}
+
+// CMD: 0x1222
+message msg_notify
+{
+	user_info sender                = 1; // 来源者信息
+	string msg                      = 2; // 发送的消息
+	uint32 msgCount                 = 3; // 房间内消息总条数
+}

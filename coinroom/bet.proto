@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option java_package = "protocols.coinroom";
+option java_outer_classname = "bet";
+
+// 下注请求 CMD 0x2C
+message request
+{
+    uint32 bet              = 1; // 下注倍数，0=不下注
+}
+
+// 单用户响应 CMD 0x2C
+message response
+{
+    sint32 error        	= 1; // 错误代码，0=成功
+	uint32 bet              = 2; // 下注倍数
+	string errDesc          = 3; // 错误描述
+}
+
+// 房间内广播 CMD 0x2D
+message bet_notify
+{
+	uint32 seatId             = 1; // 座位号
+	uint32 bet                = 2; // 下注倍数
+}

@@ -1,0 +1,32 @@
+syntax = "proto3";
+import "roulette/common.proto";
+
+option java_package = "protocols.roulette";
+option java_outer_classname = "joinroom";
+
+// CMD: 0x1301
+// 加入轮盘房间
+
+// 请求
+message request
+{
+	string roomId              = 1; // 房间号
+}
+
+// 返回
+message response
+{
+	sint32 error                  = 1; // 错误代码，0=成功 1=房间号不存在 2=金币不足 
+	string errDesc                = 2; // 错误描述
+	room_info config              = 3; // 房间配置信息
+    string currStage              = 4; // 轮盘当前阶段 readying=准备开始 betting=下注中 prizing=开奖中 prized=已开奖
+	sint32 countDown              = 5; // 当前阶段剩余时间，以毫秒为单位, -1代表无穷
+	repeated bet selfBets         = 6; // 本人下注汇总(断线重连)
+	repeated bet totalBets        = 7; // 所有人下注汇总(断线重连)
+	sint32 result                 = 8; // 开奖结果, -1代表没开奖(断线重连)
+	repeated bet selfRewards      = 9; // 本人获奖汇总(断线重连)
+	uint32 historyBet             = 10; // 累计下注
+	uint32 historyReward          = 11; // 累计获奖
+	bool isAdmin                  = 12; // 本人是否该房间管理员
+	user_info self                = 13; // 用户自身信息
+}

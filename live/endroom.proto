@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option java_package = "protocols.live";
+option java_outer_classname = "endroom";
+
+// CMD: 0x1202
+// 主播结束房间
+
+// 请求
+message request
+{
+    uint32 roomId                 = 1; // 备用字段
+}
+
+// 主播响应
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功 1=房间号不存在 2=更新失败
+    string errDesc                = 2; // 错误描述
+}
+
+// 观众广播 CMD: 0x1209
+message anchorexit
+{
+}

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option java_package = "protocols.loginreward";
+option java_outer_classname = "loginrecord";
+
+// CMD: 0x97
+// 获取签到记录协议
+
+// 请求
+message request
+{
+}
+
+// 返回
+message response
+{
+    repeated record_t records       = 1; // 登录记录
+}
+
+// 一天的记录
+message record_t
+{
+    uint32 day                  = 1; // 第几天
+    bool isLogin                = 2; // 是否已登录
+    bool isGotPrize             = 3; // 是否领奖了
+    uint32 roomcard             = 4; // 房卡数
+}

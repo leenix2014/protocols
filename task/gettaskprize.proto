@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+import "task/taskdata.proto";
+
+option java_package = "protocols.task";
+option java_outer_classname = "gettaskprize";
+
+// CMD: 0x9B
+// 领取任务奖励协议
+
+// 请求
+message reconRequest
+{
+    uint32 taskId                  = 1; // 领取的任务id
+	string lang                    = 2; //语种，en_US为英文，zh_CN为中文。
+}
+
+// 返回
+message reconResponse
+{
+    uint32 error                   = 1; // 0 = 成功 其他 = 错误
+    uint32 taskId                  = 2; // 领取的任务id
+    uint32 roomCard                = 3; // 获得多少房卡
+    taskdata_t nexttask            = 4; // 下一个任务数据
+    string errDesc                 = 5; // 错误描述
+}
+

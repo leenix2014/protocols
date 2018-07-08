@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_package = "protocols.shop";
+option java_outer_classname = "deliveryforgood";
+
+// CMD: 0x1110
+// 商品发货
+
+// 请求
+message request
+{
+	string orderId	= 1; // 订单号
+	string iapReceipt = 2;	// 交易凭据
+}
+
+// 返回
+message response
+{
+	uint32 error	= 1; // 错误代码，0=成功 1=订单不存在 2=订单已发货 3=未成功缴费(有可能是与苹果通讯失败) 4=订单商品与凭据商品不一致 5=服务端没有该商品 其他=错误
+	string goodID 	= 2; // 商品 ID
+    uint32 count 	= 3; // 商品数量（=下单数量*单个商品房卡数量）
+    string errDesc  = 4; // 错误描述
+}
+

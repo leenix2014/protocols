@@ -1,0 +1,202 @@
+syntax = "proto3";
+
+option java_package = "protocols.roulette";
+option java_outer_classname = "common";
+
+message room_info
+{
+	string roomId                 = 1; // 房间号
+	uint32 gameType               = 2; // 37=欧式轮盘(默认) 38=美式轮盘 25=法式轮盘
+	uint32 minCoin                = 3; // 加入房间最少金币数
+	uint32 minBet                 = 4; // 同一下注目标，单人单次最小下注额
+	uint32 maxBet                 = 5; // 同一下注目标，单人单次最大下注额
+	uint32 maxTotalBet            = 6; // 房间总最大下注额
+	uint32 drawPercent            = 7; // 抽水百分比
+	uint32 betTime                = 8; // 下注时长，以秒为单位
+	uint32 prizeTime              = 9; // 开奖时长，以秒为单位
+	string channel                = 10; // 声网频道号
+}
+
+message user_info
+{
+    uint32 userId                 = 1; // 用户id
+    string userName               = 2; // 昵称
+    uint32 avatar                 = 3; // 头像
+    uint32 coin                   = 4; // 金币数
+	bool silent                   = 5; // 是否已被禁言
+}
+
+message bet
+{
+    //beton  target              = 1; // 下注目标或获奖目标，为了后续可拓展，改用string
+	string target              = 1; // 下注目标或获奖目标
+	uint32 coins               = 2; // 下注或获奖金币数
+}
+
+
+// @Deprecated 下注目标
+enum beton
+{
+	//special bet, total 12
+	small                = 0; // 小
+	big                  = 1; // 大
+	even                 = 2; // 偶数
+	odd                  = 3; // 奇数
+	red                  = 4; // 红
+	black                = 5; // 黑
+	dozen1               = 6; // Dozen Bet，1-12
+	dozen2               = 7; // Dozen Bet，13-24
+	dozen3               = 8; // Dozen Bet，25-36
+	col1                 = 9; // Column Bet，1,4,7,...
+	col2                 = 10; // Column Bet，2,5,8,...
+	col3                 = 11; // Column Bet，3,6,9,...
+	//single bet, total 37
+	s0                   = 12; // Straight Bet,0
+	s1                   = 13; // Straight Bet,1
+	s2                   = 14; // Straight Bet,2
+	s3                   = 15; // Straight Bet,3
+	s4                   = 16; // Straight Bet,4
+	s5                   = 17; // Straight Bet,5
+	s6                   = 18; // Straight Bet,6
+	s7                   = 19; // Straight Bet,7
+	s8                   = 20; // Straight Bet,8
+	s9                   = 21; // Straight Bet,9
+	s10                  = 22; // Straight Bet,10
+	s11                  = 23; // Straight Bet,11
+	s12                  = 24; // Straight Bet,12
+	s13                  = 25; // Straight Bet,13
+	s14                  = 26; // Straight Bet,14
+	s15                  = 27; // Straight Bet,15
+	s16                  = 28; // Straight Bet,16
+	s17                  = 29; // Straight Bet,17
+	s18                  = 30; // Straight Bet,18
+	s19                  = 31; // Straight Bet,19
+	s20                  = 32; // Straight Bet,20
+	s21                  = 33; // Straight Bet,21
+	s22                  = 34; // Straight Bet,22
+	s23                  = 35; // Straight Bet,23
+	s24                  = 36; // Straight Bet,24
+	s25                  = 37; // Straight Bet,25
+	s26                  = 38; // Straight Bet,26
+	s27                  = 39; // Straight Bet,27
+	s28                  = 40; // Straight Bet,28
+	s29                  = 41; // Straight Bet,29
+	s30                  = 42; // Straight Bet,30
+	s31                  = 43; // Straight Bet,31
+	s32                  = 44; // Straight Bet,32
+	s33                  = 45; // Straight Bet,33
+	s34                  = 46; // Straight Bet,34
+	s35                  = 47; // Straight Bet,35
+	s36                  = 48; // Straight Bet,36
+	//double bet, total 60
+	d0_1                 = 49; // Split Bet, 0 1
+	d0_2                 = 50; // Split Bet, 0 2
+	d0_3                 = 51; // Split Bet, 0 3
+	d1_2                 = 52; // Split Bet, 1 2
+	d1_4                 = 53; // Split Bet, 1 4
+	d2_3                 = 54; // Split Bet, 2 3
+	d2_5                 = 55; // Split Bet, 2 5
+	d3_6                 = 56; // Split Bet, 3 6
+	d4_5                 = 57; // Split Bet, 4 5
+	d4_7                 = 58; // Split Bet, 4 7
+	d5_6                 = 59; // Split Bet, 5 6
+	d5_8                 = 60; // Split Bet, 5 8
+	d6_9                 = 61; // Split Bet, 6 9
+	d7_8                 = 62; // Split Bet, 7 8
+	d7_10                = 63; // Split Bet, 7 10
+	d8_9                 = 64; // Split Bet, 8 9
+	d8_11                = 65; // Split Bet, 8 11
+	d9_12                = 66; // Split Bet, 9 12
+	d10_11               = 67; // Split Bet, 10 11
+	d10_13               = 68; // Split Bet, 10 13
+	d11_12               = 69; // Split Bet, 11 12
+	d11_14               = 70; // Split Bet, 11 14
+	d12_15               = 71; // Split Bet, 12 15
+	d13_14               = 72; // Split Bet, 13 14
+	d13_16               = 73; // Split Bet, 13 16
+	d14_15               = 74; // Split Bet, 14 15
+	d14_17               = 75; // Split Bet, 14 17
+	d15_18               = 76; // Split Bet, 15 18
+	d16_17               = 77; // Split Bet, 16 17
+	d16_19               = 78; // Split Bet, 16 19
+	d17_18               = 79; // Split Bet, 17 18
+	d17_20               = 80; // Split Bet, 17 20
+	d18_21               = 81; // Split Bet, 18 21
+	d19_20               = 82; // Split Bet, 19 20
+	d19_22               = 83; // Split Bet, 19 22
+	d20_21               = 84; // Split Bet, 20 21
+	d20_23               = 85; // Split Bet, 20 23
+	d21_24               = 86; // Split Bet, 21 24
+	d22_23               = 87; // Split Bet, 22 23
+	d22_25               = 88; // Split Bet, 22 25
+	d23_24               = 89; // Split Bet, 23 24
+	d23_26               = 90; // Split Bet, 23 26
+	d24_27               = 91; // Split Bet, 25 27
+	d25_26               = 92; // Split Bet, 25 26
+	d25_28               = 93; // Split Bet, 25 28
+	d26_27               = 94; // Split Bet, 26 27
+	d26_29               = 95; // Split Bet, 26 29
+	d27_30               = 96; // Split Bet, 27 30
+	d28_29               = 97; // Split Bet, 28 29
+	d28_31               = 98; // Split Bet, 28 31
+	d29_30               = 99; // Split Bet, 29 30
+	d29_32               = 100; // Split Bet, 29 32
+	d30_33               = 101; // Split Bet, 30 33
+	d31_32               = 102; // Split Bet, 31 32
+	d31_34               = 103; // Split Bet, 31 34
+	d32_33               = 104; // Split Bet, 32 33
+	d32_35               = 105; // Split Bet, 32 35
+	d33_36               = 106; // Split Bet, 33 36
+	d34_35               = 154; // Split Bet, 34 35
+	d35_36               = 155; // Split Bet, 35 36
+	//triple bet, total 14
+	t0_1_2               = 107; // Street Bet, 0 1 2
+	t0_2_3               = 108; // Street Bet, 0 2 3
+	t1                   = 109; // Street Bet, 1 2 3
+	t4                   = 110; // Street Bet, 4 5 6
+	t7                   = 111; // Street Bet, 7 8 9
+	t10                  = 112; // Street Bet, 10 11 12
+	t13                  = 113; // Street Bet, 13 14 15
+	t16                  = 114; // Street Bet, 16 17 18
+	t19                  = 115; // Street Bet, 19 20 21
+	t22                  = 116; // Street Bet, 22 23 24
+	t25                  = 117; // Street Bet, 25 26 27
+	t28                  = 118; // Street Bet, 28 29 30
+	t31                  = 119; // Street Bet, 31 32 33
+	t34                  = 120; // Street Bet, 34 35 36
+	//fourth bet, total 22
+	f1                   = 121; // Corner Bet, 1 2 4 5
+	f2                   = 122; // Corner Bet, 2 3 5 6
+	f4                   = 123; // Corner Bet, 4 5 7 8
+	f5                   = 124; // Corner Bet, 5 6 8 9
+	f7                   = 125; // Corner Bet, 7 8 10 11
+	f8                   = 126; // Corner Bet, 8 9 11 12
+	f10                  = 127; // Corner Bet, 10 11 13 14
+	f11                  = 128; // Corner Bet, 11 12 14 15
+	f13                  = 129; // Corner Bet, 13 14 16 19
+	f14                  = 130; // Corner Bet, 14 15 17 18
+	f16                  = 131; // Corner Bet, 16 17 19 20
+	f17                  = 132; // Corner Bet, 17 18 20 21
+	f19                  = 133; // Corner Bet, 19 20 22 23
+	f20                  = 134; // Corner Bet, 20 21 23 24
+	f22                  = 135; // Corner Bet, 22 23 25 26
+	f23                  = 136; // Corner Bet, 23 24 26 27
+	f25                  = 137; // Corner Bet, 25 26 28 29
+	f26                  = 138; // Corner Bet, 26 27 29 30
+	f28                  = 139; // Corner Bet, 28 29 31 32
+	f29                  = 140; // Corner Bet, 29 30 32 33
+	f31                  = 141; // Corner Bet, 31 32 34 35
+	f32                  = 142; // Corner Bet, 32 33 35 36
+	//six bet, total 11
+	sx1_6                = 143; // Sixline Bet, 1-6
+	sx4_9                = 144; // Sixline Bet, 4-9
+	sx7_12               = 145; // Sixline Bet, 7-12
+	sx10_15              = 146; // Sixline Bet, 10-15
+	sx13_18              = 147; // Sixline Bet, 13-18
+	sx16_21              = 148; // Sixline Bet, 16-21
+	sx19_24              = 149; // Sixline Bet, 19-24
+	sx22_27              = 150; // Sixline Bet, 22-27
+	sx25_30              = 151; // Sixline Bet, 25-30
+	sx28_33              = 152; // Sixline Bet, 28-33
+	sx31_36              = 153; // Sixline Bet, 31-36
+}

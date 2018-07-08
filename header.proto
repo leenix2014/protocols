@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option java_package = "protocols";
+option java_outer_classname = "header";
+
+// 网络封包
+message packet
+{
+	uint32 command 		= 1; // 命令字
+	uint32 version 		= 2; // 版本号
+	uint32 subversion	= 3; // 子版本
+	uint64 flags		= 4; // 标志
+	bytes  body 		= 5; // 包体
+}

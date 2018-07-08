@@ -1,0 +1,58 @@
+syntax = "proto2";
+import "coinroom/common.proto";
+
+option java_package = "protocols.coinroom";
+option java_outer_classname = "join";
+
+// 用户点击列表项加入 CMD 0x21
+message request
+{
+	required uint32 roomId                 = 1; // 用户选择的房间id
+	optional string pwd                    = 2; // 加密房间对应的密码(md5加密)
+}
+
+// 快速加入游戏 CMD 0x22
+message quickjoin
+{
+	optional room_type mode                = 1; // 无庄模式还是抢庄模式
+	optional room_grade grade              = 2; // 初级场、中级场、高级场
+}
+
+// request和quickjoin的响应(单用户响应) CMD 0x21
+message response
+{
+    required sint32 error                    = 1; // 错误代码，0=成功 1=房间号不存在(join) 2=金币太少 3=已有游戏进行中，直接加入原游戏房间 4=没有合适的房间(quickjoin) 5=密码不正确
+	required room_t room                     = 2; // 加入的房间信息
+	required uint32 selfSeatId               = 3; // 用户座位号
+	required user_role selfRole              = 4; // 用户成功加入的角色
+	repeated player_info player              = 5; // 玩家的头像等信息(包括自己)
+	optional string errDesc                  = 6; // 错误描述
+}
+
+// 房间内广播 CMD 0x23
+message join_notify
+{
+	required user_info joinUser              = 1; // 加入者信息
+	required user_role role                  = 2; // 用户角色
+	optional uint32 seatId                   = 3; // 如果是player则有座位号，audience为0
+}
+
+message room_t
+{
+	required room_info config                = 1; // 房间信息
+	required room_stage stage                = 2; // 房间当前阶段
+	required sint32 countDown                = 3; // 各阶段倒计时剩余时间，毫秒为单位，-1代表无穷，只有init stage是-1
+}
+
+message player_info
+{
+	required uint32 seatId                      = 1; // 座位号
+    required user_info player                   = 2; // 玩家信息
+	required user_role role                     = 3; // 用户角色
+	optional uint32 grab                        = 4; // 抢庄倍数(断线重连)
+	optional uint32 bet                         = 5; // 下注倍数(断线重连)
+	repeated uint32 hand                        = 6; // 玩家已摊牌手牌(断线重连)
+	optional uint32 cardType                    = 7; // 手牌牌型(断线重连)
+    optional sint32 score                       = 8; // 单局分数(断线重连)
+	optional uint32 draw                        = 9; // 单局抽水(断线重连)
+}

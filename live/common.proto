@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+option java_package = "protocols.live";
+option java_outer_classname = "common";
+
+// 主播房间信息
+message live_room
+{
+    string channel        = 1; // 声网频道
+    uint32 anchor         = 2; // 主播id
+    string anchorName     = 3; // 主播名称
+    string title          = 4; // 房间标题
+    uint32 cost           = 5; // 加入房间所需房卡数
+	uint32 onlineCount    = 6; // 在线人数
+	string type           = 7; // live=主播 pusher=推币机 catcher=娃娃机
+	uint32 historyCube    = 8; // 主播热度
+    bool encrypted        = 9; // 是否加密房
+    uint32 msgCount       = 10; // 房间消息数量
+	tiger tiger           = 11; // 老虎机
+}
+
+message user_info
+{
+    uint32 userId                 = 1; // 用户id
+    string userName               = 2; // 昵称
+    uint32 rank                   = 3; // 用户等级
+    string rankName               = 4; // 等级名称
+}
+
+// 礼品信息
+message gift_t
+{
+	uint32 giftId                = 1; // 礼物id
+	string name                  = 2; // 礼物名称
+	uint32 cost                  = 3; // 礼物价格
+	bool crossRoom               = 4; // 价格特别高的商品会跨房间广播
+	bool playEffect              = 5; // true则播放礼物特效
+    string animation             = 6; // 礼物特效动画路径
+}
+
+// 老虎机图案
+message tiger
+{
+    repeated scroll wheel                = 1; // 滚轮
+}
+
+// 老虎机滚轮
+message scroll
+{
+    repeated string item                 = 1; // 图案
+    uint32 pos                           = 2; // 当前停留位置
+}

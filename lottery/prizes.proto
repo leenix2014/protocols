@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option java_package = "protocols.lottery";
+option java_outer_classname = "prizes";
+
+// CMD: 0x1102
+// 抽奖奖品列表
+
+// 请求
+message request
+{
+	string lang                    = 1; //语种，en_US为英文，zh_CN为中文。
+}
+
+// 返回
+message response
+{
+    repeated prize_t prizes      = 1; // 奖品列表
+	prize_t prize                = 2; // 第一次抽奖中的奖品
+	uint32 drawCount             = 3; // 抽奖次数
+}
+
+// 奖品数据
+message prize_t
+{
+    uint32 prizeId                 = 1; // 奖品id
+    string desc                    = 2; // 奖品描述
+    uint32 type                    = 3; // 奖品类型 1=房卡 2=抽奖次数
+    uint32 count                   = 4; // 奖品数量
+}

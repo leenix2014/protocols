@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_package = "protocols.coin";
+option java_outer_classname = "transferrate";
+
+// CMD: 0x63
+// 获取金币转账费率
+
+// 请求
+message request
+{
+	uint32 amount  = 1; // optional 转账金额
+}
+
+// 返回
+message response
+{
+    sint32 error        	= 1; // 错误代码，0=成功
+	uint32 percent          = 2; // 手续费百分比
+	uint32 fee              = 3; // 手续费
+	string errDesc          = 4; // 错误描述
+}

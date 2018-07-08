@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option java_package = "protocols.coin";
+option java_outer_classname = "transfercoin";
+
+// CMD: 0x62
+// Coin Transfer
+
+// 请求
+message request
+{
+	uint32 toUserId         = 1; // 转入用户ID
+    uint32 coins            = 2; // 转出金币数量
+}
+
+// 返回
+message response
+{
+    sint32 error        	= 1; // 错误代码，0=成功 1=金币数无效(必须大于0且为100的整数倍) 2=金币不足 3=转入用户不存在 4=转账失败 其他=服务器错误
+	uint32 coins            = 2; // 剩余Coin数量
+	string errDesc          = 3; // 错误描述
+}
+
+// CMD: 0x65
+message transfer_notify
+{
+	string fromUserId       = 1; // 转出用户id
+	string fromUserName     = 2; // 转出用户姓名
+	uint32 amount           = 3; // 转账金额
+	uint32 mycoin           = 4; // 本人现有金币
+}

@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_package = "protocols.coinroom";
+option java_outer_classname = "ready";
+
+// 请求 CMD 0x26
+message request
+{
+	
+}
+
+// 单用户响应 CMD 0x26
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功
+    string errDesc                = 2; // 错误描述
+}
+
+// 广播式返回 CMD 0x27
+message ready_notify
+{
+	uint32 seatId                 = 1; // 准备用户的座位号
+	bool allReady                 = 2; // 全部准备好时返回true,客户端暂时无需处理，因游戏开始会收到start.response
+}

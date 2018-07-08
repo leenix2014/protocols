@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+import "config.proto";
+
+option java_package = "protocols.bull";
+option java_outer_classname = "reconnect";
+
+// CMD: 0x99
+// 断线重连协议
+
+// 请求
+message reconRequest
+{
+    uint32 sid		= 1; // 登陆方式，1=游客 2=FB 3=手机登陆
+	string uuid		= 2; // uuid
+	string token	= 3; // 登陆token
+	string extra	= 4; // 其他信息，json字符串
+}
+
+// 返回
+message reconResponse
+{
+    sint32 error                    = 1; // 错误代码，0=成功 其他=错误
+    uint32 inst                     = 2; // 房间ID    0=不在房间内 其他=所在房间的id
+    uint32 owner                    = 3; // 房主
+    bool playing                    = 4; // 牌局是否在进行
+    uint32 inning                   = 5; // 局数，每局开始后+1
+    bull config                     = 6; // 玩法配置
+    repeated seat_t seats           = 7; // 座位
+	string errDesc                  = 8; // 错误描述
+}
+

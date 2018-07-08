@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_package = "protocols.user";
+option java_outer_classname = "getagent";
+
+// CMD: 0x72
+// 获取用户绑定的代理
+
+// 请求
+message request
+{
+	
+}
+
+
+message response
+{
+	sint32 error	= 1; // 错误代码，0=成功
+	string agentId  = 2; // 代理账号ID
+	string errDesc  = 3; // 错误描述
+}
+

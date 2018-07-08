@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_package = "protocols.bull";
+option java_outer_classname = "betting";
+
+// CMD: 0x87
+// 下注
+
+// 请求
+message request
+{
+    uint32 bets         = 1; // 下注倍数，>=1
+}
+
+// 返回
+message response
+{
+    sint32 error        	= 1; // 错误代码，0=成功 1=下注倍数超过房间最大倍数 其他=错误
+    uint32 seat         	= 2; // 座位ID
+    uint32 bets         	= 3; // 下注倍数
+    uint32 isAllPlayerBet 	= 4; // 是否所有人下注完成，0=未完成，1=完成，仅在35张看牌下注玩法中使用
+	string errDesc          = 5; // 错误描述
+}

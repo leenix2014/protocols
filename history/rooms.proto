@@ -1,0 +1,32 @@
+syntax = "proto3";
+import "config.proto";
+
+option java_package = "protocols.history";
+option java_outer_classname = "rooms";
+
+// CMD: 0x1104
+// 最近房间列表
+
+// 请求
+message request
+{
+}
+
+// 返回
+message response
+{
+    repeated room_t recentRooms    = 1; // 最近房间列表
+}
+
+// 房间配置数据
+message room_t
+{
+    uint32 roomId                  = 1; // 房间号
+    uint32 game                    = 2; // 游戏类型，1=斗牛；2=三五张
+    uint32 owner                   = 3; // 房主ID
+    string ownerName               = 4; // 房主名称
+	bull   config                  = 5; // 房间配置
+	uint32 status                  = 6; // 0=游戏中；1=所有牌局已结束；2=已解散；3=玩家破产；4=庄家破产；
+	string createTime              = 7; // 房间创建时间，格式：yyyy-MM-dd HH:mm:ss
+	string endTime                 = 8; // 房间结束时间，格式：yyyy-MM-dd HH:mm:ss
+}

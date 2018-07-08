@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option java_package = "protocols.user";
+option java_outer_classname = "bindphone";
+
+// CMD: 0x70
+// 绑定手机号码命令字，客户端需参考register，先发confirmrequest，再带校验码bindphone
+
+// 请求
+message request
+{
+	string countryCode		= 1; // 国家码
+	string phonenumber		= 2; // 手机号码
+	string code		        = 3; // 验证码
+	string pwd              = 4; // 第一次绑定手机需提供密码
+}
+
+
+message response
+{
+	sint32 error	     = 1; // 错误代码，0=成功 1=验证码错误 2=该手机号已被其他用户绑定
+	string errDesc       = 2; // 错误描述
+	string countryCode   = 3; // 已绑定国家码
+	string phonenumber   = 4; // 已绑定手机号
+}
+

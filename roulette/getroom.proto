@@ -1,0 +1,23 @@
+syntax = "proto3";
+import "roulette/common.proto";
+
+option java_package = "protocols.roulette";
+option java_outer_classname = "getroom";
+
+// CMD: 0x1300
+// 客户请求房间
+
+// 请求
+message request
+{
+    string direction              = 1; // up=用户往下滑动；down=用户往上滑动
+	uint32 gameType               = 2; // 37=欧式轮盘(默认) 38=美式轮盘 25=法式轮盘
+}
+
+// 返回
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功
+	string errDesc                = 2; // 错误描述
+	room_info config              = 3; // 房间配置信息
+}

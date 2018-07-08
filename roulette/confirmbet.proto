@@ -1,0 +1,32 @@
+syntax = "proto3";
+import "roulette/common.proto";
+
+option java_package = "protocols.roulette";
+option java_outer_classname = "confirmbet";
+
+// CMD: 0x1302
+// 轮盘下注
+
+// 请求
+message request
+{
+	string roomId              = 1; // 房间号
+	repeated bet bets          = 2; // 下注列表
+}
+
+// 返回
+message response
+{
+    sint32 error               = 1; // 错误代码，0=成功
+	string errDesc             = 2; // 错误描述
+	repeated bet bets          = 3; // 本人本次下注
+	repeated bet selfBets      = 4; // 本人下注汇总
+	uint32 userCoin            = 5; // 下注后金币余额
+}
+
+// CMD: 0x1303
+message bet_notify
+{
+	repeated bet bets          = 1; // 玩家本次下注
+	repeated bet totalBets     = 2; // 所有人下注汇总
+}

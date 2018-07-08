@@ -1,0 +1,26 @@
+syntax = "proto3";
+import "coinroom/common.proto";
+
+option java_package = "protocols.coinroom";
+option java_outer_classname = "stage";
+
+// 获取当前阶段和倒计时(Reserved) CMD 0x35
+message request
+{
+}
+
+// 单用户响应(Reserved) CMD 0x35
+message response
+{
+    sint32 error        	= 1; // 错误代码，0=成功
+	room_stage curr         = 2; // 当前阶段
+    sint32 countDown        = 3; // 当前阶段倒计时，毫秒为单位，-1代表无穷，只有init stage是-1
+    string errDesc          = 4; // 错误描述
+}
+
+// 房间内广播 CMD 0x36(全部下注，发牌完毕等情况会收到通知)
+message stage_notify
+{
+	room_stage curr           = 1; // 当前阶段
+    sint32 countDown          = 2; // 当前阶段倒计时，毫秒为单位，-1代表无穷，只有init stage是-1
+}

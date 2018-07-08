@@ -1,0 +1,29 @@
+syntax = "proto2";
+
+option java_package = "protocols.bull";
+option java_outer_classname = "over";
+// CMD: 0x84
+// 单局游戏结束，进行结算 [proto3 不支持 repeated uint32等数字类型]
+
+// 请求: 无
+// message request{}
+
+// 返回
+message response
+{
+    required uint32 inning  = 1; // 局数
+    required uint32 dealer  = 2; // 庄家
+    repeated seat_t seats   = 3; // 座位信息
+}
+
+// 座位
+message seat_t
+{
+    required uint32 id      = 1; // 座位ID
+    required uint32 rank    = 3; // 牌型
+    repeated uint32 show    = 4; // 摊牌
+    required sint32 scores  = 5; // 单局分数
+    required sint32 total   = 6; // 总分
+    required uint32 multiple= 7; // 倍数
+    optional float draw     = 8; // 单局抽水（预留后续需要显示时用）
+}

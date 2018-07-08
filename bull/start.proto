@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_package = "protocols.bull";
+option java_outer_classname = "start";
+// CMD: 0x83
+// 游戏开始
+
+// 请求
+message request
+{
+}
+
+// 返回
+message response
+{
+    sint32 error    = 1; // 错误代码，0=成功 其他=错误
+    uint32 dealer   = 2; // 庄家座位ID
+    uint32 inning   = 3; // 局数
+	string errDesc  = 4; // 错误描述
+}

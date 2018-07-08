@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option java_package = "protocols";
+option java_outer_classname = "config";
+
+// 创建房间的配置，其他协议可import
+
+//斗牛
+message bull
+{
+    // 庄家
+    enum DEALER
+    {
+        GRAB                = 0; // 抢庄
+        OWNER               = 1; // 房主
+        NONE                = 2; // 通比（无庄）
+        WINNER              = 4; // 赢家
+        CIS                 = 8; // 轮流（暂时不做）
+    }
+    DEALER dealer           = 1; // 坐庄类型
+    uint32 bscores          = 2; // 底分
+    uint32 seats            = 3; // 人数（现固定5人）
+    uint32 innings          = 4; // 总局数
+    uint32 pmscores         = 5; // 闲家封顶倍数，封顶牌局解散；0代表不设置封顶倍数
+    uint32 dmscores         = 6; // 庄家封顶倍数，封顶牌局解散；0代表不设置封顶倍数
+    bool   blind            = 7; // 盲注，true=不看牌下注 false=看牌下注
+    uint32 maxBet           = 8; // 最大下注倍数，取值1、2、3、5、10
+    bool   hasGhost         = 9; // 有大小王（鬼牌）
+	uint32 drawPercent      = 10;// 该房间抽水百分比
+	bool   coinroom         = 11;// 是否金币场私人房
+}
+
+// 房间内座位信息
+message seat_t
+{
+    uint32 id       = 1; // 座位ID
+    uint32 uid      = 2; // UID
+    string name     = 3; // 昵称
+    uint32 avatar   = 4; // 头像
+    uint32 roomcard = 5; // 房卡数或金币数
+}

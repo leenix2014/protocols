@@ -1,0 +1,15 @@
+syntax = "proto2";
+
+option java_package = "protocols.coinroom";
+option java_outer_classname = "deal";
+
+// 发牌 [proto3 不支持 repeated uint32等数字类型]
+// 请求: 无
+// message request{}
+
+// 返回 CMD 0x2E
+message response
+{
+    required uint32 seatId    = 1; // 座位ID
+    repeated uint32 hand      = 2; // 手牌
+}

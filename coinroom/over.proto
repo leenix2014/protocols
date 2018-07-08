@@ -1,0 +1,33 @@
+syntax = "proto2";
+
+option java_package = "protocols.coinroom";
+option java_outer_classname = "over";
+// 单局游戏结束，进行结算 [proto3 不支持 repeated uint32等数字类型]
+
+// 请求: 无
+// message request{}
+
+// 返回 CMD 0x30
+message response
+{
+    required uint32 base_score    = 1; // 房间底分
+    repeated seat_t seats         = 2; // 座位信息
+	optional uint32 bankerSeatId  = 3; // 庄家
+	optional uint32 bankerGrab    = 4; // 庄家抢庄倍数
+}
+
+// 座位
+message seat_t
+{
+    required uint32 seatId         = 1; // 座位号
+	required uint32 grab           = 2; // 抢庄倍数
+	required uint32 bet            = 3; // 下注倍数
+	repeated uint32 hand           = 4; // 手牌
+    required uint32 cardType       = 5; // 手牌牌型
+    required uint32 cardTypeMul    = 6; // 牌型倍数
+    required sint32 score          = 7; // 单局分数
+	required uint32 draw           = 8; // 单局抽水
+	required uint32 remainCoin     = 9; // 剩下的金币数
+	required bool   needCharge     = 10; // true则提醒用户充值
+	optional uint32 chargeTo       = 11; // 提示充值到多少比较合适
+}

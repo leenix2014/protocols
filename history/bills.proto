@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option java_package = "protocols.history";
+option java_outer_classname = "bills";
+
+// CMD: 0x1108
+// 房卡或金币账单
+
+// 请求
+message request
+{
+	string lang                    = 1; //语种，en_US为英文，zh_CN为中文。
+	string type                    = 2; //cube=房卡账单 coin=金币账单
+}
+
+// 返回
+message response
+{
+    repeated bill_t bills    = 1; // 账单
+}
+
+// 房卡账单数据
+message bill_t
+{
+    string source                  = 1; // 来源
+    string sourceDesc              = 2; // 来源描述
+    sint32 amount                  = 3; // 金额(负数代表消费)
+    uint32 beforeBal               = 4; // 之前余额
+	uint32 afterBal                = 5; // 之后余额
+	string datetime                = 6; // 时间
+}

@@ -1,0 +1,26 @@
+syntax = "proto3";
+import "roulette/common.proto";
+
+option java_package = "protocols.roulette";
+option java_outer_classname = "result";
+
+// CMD: 0x1309
+// 轮盘开奖
+
+// 请求(Reserved)
+message request
+{
+	string roomId              = 1; // 房间号
+}
+
+// 返回
+message response
+{
+	sint32 error                           = 1; // 错误码，0=成功
+	string errDesc                         = 2; // 错误描述
+    uint32 gameType                        = 3; // 37=欧式轮盘(默认) 38=美式轮盘(不支持) 25=法式轮盘
+	uint32 result                          = 4; // 开奖结果
+	repeated bet selfRewards               = 5; // 获奖信息
+	uint32 userCoin                        = 6; // 领奖后金币余额
+	repeated string winTargets             = 7; // 赢钱区域
+}

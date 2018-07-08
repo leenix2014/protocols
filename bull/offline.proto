@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option java_package = "protocols.bull";
+option java_outer_classname = "offline";
+
+// CMD: 0x1107
+// 离线广播通知
+
+// 返回
+message response
+{
+    uint32 seat         	= 1; // 座位ID
+    uint32 userId         	= 2; // 离线用户id
+}

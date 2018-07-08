@@ -1,0 +1,91 @@
+syntax = "proto2";
+
+option java_package = "protocols.baccarat";
+option java_outer_classname = "common";
+
+message room_info
+{
+	required string roomId                 = 1; // 房间号
+	optional uint32 minCoin                = 3; // 加入房间最少金币数
+	optional uint32 minBet                 = 4; // 单次最小下注额
+	optional uint32 maxBet                 = 5; // 单次最大下注额
+	optional uint32 tiePairMinBet          = 6; // 和、对子最小下注额
+	optional uint32 tiePairMaxBet          = 7; // 和、对子最大下注额
+	optional uint32 maxRed                 = 8; // 限红
+	optional uint32 drawPercent            = 9; // 抽水百分比
+	optional uint32 betTime                = 10; // 下注时长，以秒为单位
+	optional uint32 overTime               = 11; // 开奖后时长，以秒为单位
+	optional uint32 playerCount            = 12; // 玩家人数
+	optional uint32 remains                = 13; // 余牌
+	optional string channel                = 14; // 声网频道号
+}
+
+message baccarat_result
+{
+	repeated uint32 playerHands            = 1; // 闲家手牌
+	repeated uint32 bankerhands            = 2; // 庄家手牌
+	optional uint32 player2Point           = 3; // 闲家点数
+	optional uint32 banker2Point           = 4; // 庄家点数
+	optional sint32 player3Point           = 5; // 闲家补牌点数,-1代表没有补牌
+	optional sint32 banker3Point           = 6; // 庄家补牌点数,-1代表没有补牌
+	repeated string win_targets            = 7; // 赢钱区域
+	optional uint32 remains                = 8; // 余牌
+}
+
+message user_info
+{
+    optional uint32 userId                 = 1; // 用户id
+    optional string userName               = 2; // 昵称
+    optional uint32 avatar                 = 3; // 头像
+    optional uint32 coin                   = 4; // 金币数
+	optional uint32 seatId                 = 5; // 座位号
+	optional bool silent                   = 6; // 是否已被禁言
+	optional bool bigPlayer                = 7; // 是否是大玩家
+}
+
+message bet
+{
+    optional string target                 = 1; // 下注目标或获奖目标，字符串内容见以下beton
+	optional uint32 coins                  = 2; // 下注或获奖金币数
+}
+
+message waybill
+{
+	repeated column mainRoad               = 1; // 路单大路
+	repeated column dishRoad               = 2; // 路单珠盘路
+	repeated column bigEyeRoad             = 3; // 路单大眼仔
+	repeated column smallRoad              = 4; // 路单小路
+	repeated column roachRoad              = 5; // 路单蟑螂路
+	optional uint32 total                  = 6; // 总局数
+	optional uint32 bankerWin              = 7; // 庄赢局数
+	optional uint32 playerWin              = 8; // 闲赢局数
+	optional uint32 tie                    = 9; // 和局数
+	optional uint32 bankerPair             = 10; // 庄对局数
+	optional uint32 playerPair             = 11; // 闲对局数
+	optional uint32 sky                    = 12; // 天牌局数
+	optional ask banker                    = 13; // 庄问路
+	optional ask player                    = 14; // 闲问路
+}
+
+message ask
+{
+	optional uint32 bigeye                 = 1;
+	optional uint32 small                  = 2;
+	optional uint32 roach                  = 3;
+}
+
+// 路单一列
+message column
+{
+	repeated uint32 pivot                  = 1; // pivot大路取值0-24(0代表空)，一列最多6个pivot
+}
+
+//下注枚举，仅服务端使用
+enum beton
+{
+	banker_win                = 0; // 庄
+	player_win                = 1; // 闲
+	banker_pair               = 2; // 庄对
+	player_pair               = 3; // 闲对
+	tie                       = 4; // 和
+}

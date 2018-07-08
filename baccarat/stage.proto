@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option java_package = "protocols.baccarat";
+option java_outer_classname = "stage";
+
+// 获取当前阶段和倒计时(Reserved) CMD 0x1404
+message request
+{
+	string roomId              = 1; // 房间号
+}
+
+// 单用户响应(Reserved) CMD 0x1404
+message response
+{
+    sint32 error        	= 1; // 错误代码，0=成功
+    string errDesc          = 2; // 错误描述
+	string currStage        = 3; // 轮盘当前阶段 betting=下注中 prizing=开奖中 prized=已开奖
+    sint32 countDown        = 4; // 当前阶段倒计时，毫秒为单位，-1代表无穷
+}
+
+// 房间内广播 CMD 0x1405(stage发生变化时收到通知)
+message stage_notify
+{
+	string currStage          = 1; // 轮盘当前阶段 betting=下注中 prizing=开奖中 prized=已开奖
+    sint32 countDown          = 2; // 当前阶段倒计时，毫秒为单位，-1代表无穷
+}

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option java_package = "protocols.user";
+option java_outer_classname = "phoneregister";
+
+// CMD: 0x91
+// 手机注册账号协议
+
+// 请求
+message request
+{
+	string phonenumber		= 1; // 手机号码
+	string password         = 2; // 密码
+	uint32 platform	        = 3; // 平台，0=未知 1=iOS 2=Android
+	string app_ver          = 4; // 客户端版本号
+	string countryCode      = 5; // 国家码
+	string code		        = 6; // 验证码
+}
+
+// 返回,若注册成功，则直接走手机登陆流程，返回siginin协议手机登陆的内容
+message response
+{
+	sint32 error	= 1; // 错误代码，0=成功 其他=错误
+	string errDesc  = 2; // 错误描述
+}
+

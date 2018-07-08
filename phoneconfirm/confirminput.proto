@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_package = "protocols.phoneconfirm";
+option java_outer_classname = "confirminput";
+
+// CMD: 0x94
+// 输入验证码
+
+// 请求
+message request
+{
+    string phoneNumber		= 1; // 电话号码
+	string code		        = 2; // 验证码
+}
+
+// 返回
+message response
+{
+	sint32 error	= 1; // 错误代码，0=成功 1=验证码错误 其他=错误
+	string errDesc  = 2; // 错误描述
+}
+

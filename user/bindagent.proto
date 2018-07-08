@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_package = "protocols.user";
+option java_outer_classname = "bindagent";
+
+// CMD: 0x71
+// 用户绑定代理
+
+// 请求
+message request
+{
+	string agentId		= 1; // 代理账号ID
+}
+
+
+message response
+{
+	sint32 error	= 1; // 错误代码，0=成功 1=代理不存在
+	string agentId  = 2; // 成功绑定的代理ID
+	string errDesc  = 3; // 错误描述
+}
+

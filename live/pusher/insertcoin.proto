@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_package = "protocols.live.pusher";
+option java_outer_classname = "insertcoin";
+
+// CMD: 0x120A
+// 客户端插入硬币
+
+// 请求
+message request
+{
+	uint32 roomId                 = 1; // 房间号
+}
+
+// 单用户返回
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功 1=房间号不存在或未开播 2=主播未链接推币机 3=扣费失败 4=其他用户已占有，请5秒后重试
+	string name                   = 2; // 占有用户姓名
+	string errDesc                = 3; // 错误描述
+}

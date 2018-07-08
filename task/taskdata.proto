@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option java_package = "protocols.task";
+option java_outer_classname = "taskdata";
+
+// CMD: 0x9A
+// 获取任务数据
+
+// 请求
+message request
+{
+	string lang                    = 1; //语种，en_US为英文，zh_CN为中文。
+}
+
+// 返回
+message response
+{
+    repeated taskdata_t datas      = 1; // 任务数据
+}
+
+// 任务数据
+message taskdata_t
+{
+    uint32 taskId                  = 1; // 任务id
+    string desc                    = 2; // 任务描述
+    uint32 doneCount               = 3; // 已完成次数
+    uint32 finishCount             = 4; // 需要完成的次数
+    uint32 roomCard                = 5; // 房卡数
+    uint32 isGotPrize              = 6; // 是否领取了奖励 0=否 1=是
+    uint32 taskType                = 7; // 任务类型
+}

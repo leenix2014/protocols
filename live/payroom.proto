@@ -1,0 +1,31 @@
+syntax = "proto3";
+import "live/common.proto";
+
+option java_package = "protocols.live";
+option java_outer_classname = "payroom";
+
+// CMD: 0x1204
+// 客户付费
+
+// 请求
+message request
+{
+    uint32 roomId                 = 1; // 房间id
+    string pwd                    = 2; // 加密房间对应的密码(md5加密)
+}
+
+// 返回
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功 1=房间号不存在 2=房间已停播 3=房卡不足  5=密码不正确
+	live_room room                = 2; // 返回房间信息
+	string errDesc                = 3; // 错误描述
+	uint32 cube                   = 4; // 付费后剩余金币
+}
+
+// CMD: 0x1220
+message join_notify
+{
+	user_info joinUser              = 1; // 来源者信息
+	uint32 onlineCount              = 2; // 在线人数
+}

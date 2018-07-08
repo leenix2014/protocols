@@ -1,0 +1,24 @@
+syntax = "proto3";
+import "live/common.proto";
+
+option java_package = "protocols.live";
+option java_outer_classname = "getgifts";
+
+// CMD: 0x1205
+// 检查是否需要更新礼物列表
+
+// 请求
+message request
+{
+    string gift_version           = 1; // 客户端礼物版本号，如Christmas，Valentine等，非节日情况为Normal
+}
+
+// 返回
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功
+	bool needUpdate               = 2; // true=需要更新 false=无需更新
+	string gift_version           = 3; // 需要更新时返回最新的礼品版本号
+	repeated gift_t gifts         = 4; // 需要更新时返回新礼品相关信息
+	string errDesc                = 5; // 错误描述
+}

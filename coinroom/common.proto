@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+option java_package = "protocols.coinroom";
+option java_outer_classname = "common";
+
+enum room_type
+{
+	dealer_none               = 0; // 无庄模式
+	dealer_grab               = 1; // 抢庄模式
+}
+
+enum room_grade
+{
+	primary                   = 0; // 初级场
+	junior                    = 1; // 中级场
+	senior                    = 2; // 高级场
+}
+
+enum room_stage
+{
+	init                      = 0; // 小于等于一个玩家时，等待阶段，无倒计时
+	ready_ing                 = 1; // 准备倒计时阶段，结束时开始抢庄或发牌
+	start_ing                 = 2; // 游戏开始，播放开始动画
+	grab_ing                  = 3; // 抢庄倒计时阶段，结束时开始下注
+	confirm_banker_ing        = 4; // 确认庄家倒计时，客户端可添加动画
+	bet_ing                   = 5; // 下注倒计时阶段，结束时开始发牌，然后进入摊牌倒计时
+	showhand_ing              = 6; // 摊牌倒计时阶段，结束时开始返回结果，然后进入回顾倒计时
+	over_ing                  = 7; // 回顾倒计时阶段，结束时开始准备倒计时，如小于等于一个玩家，返回init阶段
+}
+
+message room_info
+{
+	uint32 roomId                 = 1; // 房间号
+	room_type mode                = 2; // 无庄模式还是抢庄模式
+	uint32 base_score             = 3; // 房间底分
+	uint32 minCoin                = 4; // 房间最小金币数
+	uint32 maxSeat                = 5; // 房间座位数
+	room_grade grade              = 6; // 初级场、中级场、高级场
+	uint32 drawPercent            = 7; // 抽水百分比
+	bool encrypted                = 8; // 是否加密房
+}
+
+message user_info
+{
+    uint32 userId             = 1; // 用户id
+    string userName           = 2; // 昵称
+    uint32 avatar             = 3; // 头像
+    uint32 coin               = 4; // 金币数
+}
+
+enum user_role
+{
+	player                    = 0; // 玩家
+	sitdowner                 = 1; // 坐着等待开始的玩家
+	audience                  = 2; // 观众
+}

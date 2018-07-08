@@ -1,0 +1,22 @@
+syntax = "proto3";
+import "live/common.proto";
+
+option java_package = "protocols.live";
+option java_outer_classname = "newroom";
+
+// CMD: 0x1201
+// 主播创建房间
+
+// 请求
+message request
+{
+	live_room room                = 1; // 房间配置，需提交channel,title, cost;
+}
+
+// 返回
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功 1=缺少必填项(channel) 2=已有主播在该channel中 3=创建失败
+	uint32 roomId                 = 2; // 房间id，不是声网频道
+	string errDesc                = 3; // 错误描述
+}

@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_package = "protocols.user";
+option java_outer_classname = "changename";
+
+// CMD: 0x95
+// 修改昵称协议
+
+// 请求
+message request
+{
+	string newname		= 1; // 新名字
+}
+
+// 返回
+message response
+{
+	sint32 error	= 1; // 错误代码，0=成功 其他=错误
+	string errDesc  = 2; // 错误描述
+}
+

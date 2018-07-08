@@ -1,0 +1,22 @@
+syntax = "proto3";
+import "roulette/common.proto";
+
+option java_package = "protocols.roulette";
+option java_outer_classname = "getuser";
+
+// CMD: 0x1306
+// 轮盘获取玩家列表
+
+// 请求
+message request
+{
+    string roomId                 = 1; // 房间号(Reserved)
+}
+
+// 返回
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功
+	string errDesc                = 2; // 错误描述
+	repeated user_info players    = 3; // 玩家信息
+}

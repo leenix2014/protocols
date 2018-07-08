@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_package = "protocols.coin";
+option java_outer_classname = "mycoin";
+
+// CMD: 0x60
+// 查询我的金币余额
+
+// 请求
+message request
+{
+}
+
+// 返回
+message response
+{
+    sint32 error        	= 1; // 错误代码，0=成功
+	uint32 coins            = 2; // 我的金币余额
+	string errDesc          = 3; // 错误描述
+	uint32 withdrawCoin     = 4; // 金币提现额度
+}

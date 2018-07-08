@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_package = "protocols.user";
+option java_outer_classname = "roomcard";
+
+// CMD: 0x90
+// 同步房卡协议
+
+// 请求
+message request
+{
+	
+}
+
+// 返回
+message response
+{
+      sint32 roomCardCount	= 1; // 拥有的房卡数量
+      sint32 type	= 2; // 更新类型 1=正常更新 2=充值添加房卡更新
+}
+

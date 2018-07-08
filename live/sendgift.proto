@@ -1,0 +1,40 @@
+syntax = "proto3";
+import "live/common.proto";
+
+option java_package = "protocols.live";
+option java_outer_classname = "sendgift";
+
+// CMD: 0x1207
+// 客户送礼
+
+// 请求
+message request
+{
+	uint32 roomId                 = 1; // 用户可能同时进入多个房间，通过用户id查找到的房间号不一定正确，需客户端上传房间号
+    uint32 giftId                 = 2; // 发送的礼物
+    uint32 giftCount              = 3; // 礼物数量
+}
+
+// 单用户返回
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功 1=礼物不存在 2=用户不存在 3=用户不在直播间 4=房卡不足
+	sint32 spurtStatus            = 2; // 喷气状态，-1=无需喷气 0=成功 1=主播已离线 2=喷气设备不在线 2=青萌返回状态不正常
+	uint32 giftId                 = 3; // 发送的礼物
+	bool bingo                    = 4; // 是否中奖
+	uint32 amount                 = 5; // 中奖金额
+	string errDesc                = 6; // 错误描述
+	uint32 cube                   = 7; // 付费后剩余cube
+	uint32 historyCube            = 8; // 主播热度
+}
+
+// CMD: 0x1221
+message gift_notify
+{
+	user_info sender                = 1; // 来源者信息
+	uint32 giftId                   = 2; // 发送的礼物id
+	uint32 giftCount                = 3; // 礼物数量
+	bool bingo                      = 4; // 是否中奖
+	uint32 historyCube              = 5; // 主播热度
+	uint32 amount                   = 6; // 中奖金额
+}

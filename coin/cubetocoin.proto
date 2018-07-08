@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_package = "protocols.coin";
+option java_outer_classname = "cubetocoin";
+
+// CMD: 0x61
+// Cube to Coin
+
+// 请求
+message request
+{
+    uint32 cubes            = 1; // 转换Cube数量
+}
+
+// 返回
+message response
+{
+    sint32 error        	= 1; // 错误代码，0=成功 1=Cube不足
+	uint32 cubes            = 2; // 剩余Cube数量
+	uint32 coins            = 3; // 剩余Coin数量
+	uint32 successCoin      = 4; // 成功充值数量
+	string errDesc          = 5; // 错误描述
+}

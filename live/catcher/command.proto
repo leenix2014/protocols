@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_package = "protocols.live.catcher";
+option java_outer_classname = "command";
+
+// CMD: 0x1211
+// 客户操作指令
+
+// 请求
+message request
+{
+	uint32 roomId                 = 1; // 房间号
+	string command                = 2; // start=开始游戏 up=向上 down=向下 left=向左 right=向右 catch=抓娃娃
+}
+
+// 单用户返回
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功 1=房间号不存在或未开播 2=主播未链接娃娃机 3=该用户未持有娃娃机，非法操作 4=catch次数已用尽
+	uint32 remainCount            = 2; // 剩余次数
+	string errDesc                = 3; // 错误描述
+}

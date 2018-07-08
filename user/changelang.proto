@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_package = "protocols.user";
+option java_outer_classname = "changelang";
+
+// CMD: 0x9D
+// 修改语种协议
+
+// 请求
+message request
+{
+	string lang		= 1; // 新语种
+}
+
+// 返回
+message response
+{
+	sint32 error	= 1; // 错误代码，0=成功 其他=错误
+	string errDesc  = 2; // 错误描述
+	string lang     = 3; // 修改成功的语种
+}
+

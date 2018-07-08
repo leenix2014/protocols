@@ -1,0 +1,29 @@
+syntax = "proto3";
+import "baccarat/common.proto";
+
+option java_package = "protocols.baccarat";
+option java_outer_classname = "leave";
+
+// CMD: 0x1410
+// 用户离开百家乐
+
+// 请求
+message request
+{
+	string roomId              = 1; // 房间号
+	bool forced                = 2; // true=强制离开
+}
+
+// 返回
+message response
+{
+	sint32 error               = 1; // 错误代码，0=成功
+	string errDesc             = 2; // 错误描述
+}
+
+// 房间内广播 CMD 0x1411
+message leave_notify
+{
+	user_info leaveUser        = 1; // 离开者信息
+	uint32 playerCount         = 2; // 玩家人数
+}

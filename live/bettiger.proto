@@ -1,0 +1,56 @@
+syntax = "proto3";
+import "live/common.proto";
+
+option java_package = "protocols.live";
+option java_outer_classname = "bettiger";
+
+// CMD: 0x1231
+// 老虎机下注
+
+// 请求
+message request
+{
+	uint32 roomId                 = 1; // 下注房间号
+    uint32 line                   = 2; // 下注线数
+    uint32 bet                    = 3; // 每条线下注金额
+}
+
+// 单用户返回
+message response
+{
+    sint32 error                  = 1; // 错误代码，0=成功
+	string errDesc                = 2; // 错误描述
+	uint32 betRemain              = 3; // 下注后剩余金币数
+}
+
+// CMD: 0x1232
+message tiger_notify
+{
+	tiger tiger                   = 1; // 开奖画面
+	uint32 totalReward            = 2; // 中奖总金额
+	reward detail                 = 3; // 中奖详情
+	uint32 currCoin               = 4; // 中奖后现有金币数
+}
+
+message reward
+{
+	repeated P allPoints          = 1; // 所有中奖的点
+	repeated line lines           = 2; // 所有中奖线路
+}
+
+message line
+{
+	uint32 id                     = 1; // 线路id，1-50
+	uint32 combo                  = 2; // 连续多少个, 2-5
+	repeated P points             = 3; // 具体相连的点
+	string item                   = 4; // 该线路中奖item
+	uint32 bet                    = 5; // 该线路下注金额
+	uint32 mul                    = 6; // 该线路中奖倍数
+	uint32 reward                 = 7; // 该线路中奖金额
+}
+
+message P
+{
+	uint32 x                      = 1; // x坐标
+	uint32 y                      = 2; // y坐标
+}

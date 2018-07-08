@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_package = "protocols.game";
+option java_outer_classname = "join";
+
+// CMD: 0x13
+// 加入房间
+
+// 请求
+message request
+{
+    uint32 inst     = 1; // 房号
+}
+
+// 返回
+message response
+{
+    sint32 error    = 1; // 错误代码，0=成功 1=房间不存在 2=房间已满 3=已有游戏进行中，inst返回房间号 4=金币不足 其他=错误
+    uint32 game     = 2; // 游戏类型
+    uint32 inst     = 3; // 正在游戏的房间号
+    string errDesc  = 4; // 错误描述
+}

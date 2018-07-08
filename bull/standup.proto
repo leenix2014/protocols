@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_package = "protocols.bull";
+option java_outer_classname = "standup";
+// CMD: 0x82
+// 玩家起身，广播给其他玩家
+
+// 请求
+message request
+{
+}
+
+// 返回
+message response
+{
+    sint32 error    = 1; // 错误代码，0=成功 其他=错误
+    uint32 id       = 2; // 座位ID
+    uint32 uid      = 3; // UID
+	string errDesc  = 4; // 错误描述
+}
